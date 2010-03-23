@@ -1,0 +1,21 @@
+Database:
+
+* Table with FORUM ID linked to CURRENT forum name (in other words, update it when the name gets updated on forums)
+* Table with ID - IP - LASTTIME
+
+Javascript @ tt forum:
+
+* REMEMBER: jQuery is loaded, make use of it!
+* get userid
+* get username
+* check ttsec cookie
+** if valid: do nothing
+** else: iframe to the remote site + set cookie on success
+* cookie expiration date ~ 20 minutes in the future
+* cookie value = login name -> BE SURE TO CHECK WHEN VALIDATING COOKIE
+
+Admin interface:
+
+* search by: ALL
+* sort by: ALL
+* login by confirming pass with ipbfree?
