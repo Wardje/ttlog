@@ -1,10 +1,13 @@
 <?php
 
-class DB
-{
+class DB {
   private $dblink = NULL;
 
-  function _connect() {
+  function __construct() {
+    self::_connect();
+  }
+
+  private function _connect() {
     global $CONF;
     // Should I use pconnect instead?
     // Should I throw error instead?
@@ -25,11 +28,11 @@ class DB
    * MySQL 6.
    */
   function createTables() {
-    var $id_name_table = "CREATE TABLE users (
+    $id_name_table = "CREATE TABLE users (
       id INT NOT NULL PRIMARY KEY,
       name VARCHAR(32) NOT NULL
     )";
-    var $id_ip_time = "CREATE TABLE iplogs (
+    $id_ip_time = "CREATE TABLE iplogs (
       id INT NOT NULL,
       ip VARCHAR(40) NOT NULL,
       time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -40,7 +43,7 @@ class DB
       mysql_query($id_name_table, $this->dblink);
     }
 
-    if (0 == mysql_num_rows( mysql_query("SHOW TABLES LIKE 'users'"))) {
+    if (0 == mysql_num_rows( mysql_query("SHOW TABLES LIKE 'iplogs'"))) {
       mysql_query($id_ip_time, $this->dblink);
     }
   }
@@ -64,12 +67,12 @@ class DB
     //var $updateQuery = sprintf("UPDATE users SET name='%s' WHERE id=%s", mysql_real_escape_string($name), $id);
     //var $insertQuery = sprintf("INSERT INTO users (id, name)
 
-    var $insertQuery = sprintf("INSERT INTO users (id, name) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE name='%s'",
+    $insertQuery = sprintf("INSERT INTO users (id, name) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE name='%s'",
                                 $id,
                                 mysql_real_escape_string($name),
                                 mysql_real_escape_string($name));
     mysql_query($insertQuery, $this->dblink);
-    return mysql_affected_rows($this-dblink);
+    return mysql_affected_rows($this->dblink);
   }
 
   /**
@@ -91,7 +94,7 @@ class DB
     }
     // */
 
-    var $insertQuery = sprintf("INSERT INTO iplogs (id, ip) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE time=NULL",
+    $insertQuery = sprintf("INSERT INTO iplogs (id, ip) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE time=NULL",
                                 $id,
                                 $ip);
     mysql_query($insertQuery, $this->dblink);
