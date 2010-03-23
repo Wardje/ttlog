@@ -1,16 +1,21 @@
 <?php
 
-  function isName() {
-    return isset($_GET['name']);
+  function isName() { return isset($_GET['name']); }
+  function isId() { return isset($_GET['id']); }
+  function getName() { return $_GET['name']; }
+  function getId() { return $_GET['id']; }
+  function getIP() { return $_SERVER['REMOTE_ADDR']; }
+  function encryptNameIP($id, $name, $ip) { return md5($id . $name . $ip); }
+  
+  function IsTTCookie() {
+    return (isset($_COOKIE[$CONF['cookie_name']]) &&
+            $_COOKIE[$CONF['cookie_name']] == EncryptNameIP(GetId(), GetName(), GetIP()));
   }
 
-  function isId() {
-    return isset($_GET['id']);
+  function SetTTCookie() {
+    return setcookie($CONF['cookie_name'],
+                      EncryptNameIP(GetId(), GetName(), GetIP()),
+                      time() + 60 * $CONF['cookie_timeout']);
   }
-
-  function GetName() { return $_GET['name']; }
-  function GetId() { return $_GET['id']; }
-  function GetIP() { return $_SERVER['REMOTE_ADDR']; }
-  function EncryptNameIP($id, $name, $ip) { return md5($id . $name . $ip); }
 
 ?>
