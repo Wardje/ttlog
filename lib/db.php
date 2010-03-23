@@ -63,10 +63,7 @@ class DB {
    * @return 2 on update
    */
   function updateName($id, $name) {
-    // http://dev.mysql.com/doc/refman/5.1/en/insert-on-duplicate.html overpowers:
-    //var $updateQuery = sprintf("UPDATE users SET name='%s' WHERE id=%s", mysql_real_escape_string($name), $id);
-    //var $insertQuery = sprintf("INSERT INTO users (id, name)
-
+    // http://dev.mysql.com/doc/refman/5.1/en/insert-on-duplicate.html
     $insertQuery = sprintf("INSERT INTO users (id, name) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE name='%s'",
                                 $id,
                                 mysql_real_escape_string($name),
@@ -82,18 +79,6 @@ class DB {
    * @return 2 on update
    */
   function updateIp($id, $ip) {
-    /*
-    var $updateQuery = sprintf("UPDATE iplogs SET time=NULL WHERE id=%s and ip='%s'", $id, $ip);
-    var $insertQuery = sprintf("INSERT INTO iplogs (id, ip) VALUES (%s, '%s')", $id, $ip);
-
-    // Is there a 'prettier' way to go about this?
-    mysql_query($updateQuery, $this->dblink);
-    if (mysql_affected_rows($this->dblink) < 1) {
-      mysql_query($insertQuery, $this->dblink);
-      if (mysql_affected_rows($this->dblink))
-    }
-    // */
-
     $insertQuery = sprintf("INSERT INTO iplogs (id, ip) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE time=NULL",
                                 $id,
                                 $ip);
@@ -102,8 +87,104 @@ class DB {
   }
 
   /**
-   * TODO Functions to retrieve data from the database
+   * TODO These functions are VERY similar, isolate those parts!
    */
+  
+  function getById($id, $sortOrder = "time") {
+    $sortBy = "ORDER BY iplogs.time";
+    // Switch so future stuff can get added easier!
+    switch ($sortOrder) {
+      case "ip":
+        $sortBy = "ORDER BY iplogs.ip";
+    }
+
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+                    FROM users,iplogs
+                    WHERE users.id = {$id} AND users.id = iplogs.id
+                    {$sortBy}";
+    $result = mysql_query($searchQuery, $this->dblink);
+    $returnArray = array();
+    while ($tmp = mysql_fetch_assoc($result)) {
+      $returnArray[] = $tmp;
+    }
+
+    return $returnArray;
+  }
+
+  function getByName($name, $sortOrder = "name") {
+    $sortBy = "ORDER BY users.name ASC, iplogs.time DESC";
+    switch ($sortOrder) {
+      case "time":
+        $sortBy = "ORDER BY iplogs.time DESC";
+        break;
+      case "ip":
+        $sortBy = "ORDER BY iplogs.ip, users.name";
+    }
+
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+                    FROM users,iplogs
+                    WHERE users.name LIKE '%" . mysql_real_escape_string($name) . "%'
+                      AND users.id = iplogs.id
+                    {$sortBy}";
+    $result = mysql_query($searchQuery, $this->dblink);
+    $returnArray = array();
+    while ($tmp = mysql_fetch_assoc($result)) {
+      $returnArray[] = $tmp;
+    }
+
+    return $returnArray;
+  }
+
+  function getByIp($ip, $sortOrder = "ip") {
+    $sortBy = "ORDER BY iplogs.ip ASC, users.name ASC";
+    switch ($sortOrder) {
+      case "time":
+        $sortBy = "ORDER BY iplogs.time DESC";
+        break;
+      case "name":
+        $sortBy = "ORDER BY users.name, iplogs.ip";
+    }
+
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+                    FROM users,iplogs
+                    WHERE iplogs.ip LIKE '"
+                        . str_replace('*', '%', mysql_real_escape_string($ip)) . "'
+                      AND users.id = iplogs.id
+                    {$sortBy}";
+    $result = mysql_query($searchQuery, $this->dblink);
+    $returnArray = array();
+    while ($tmp = mysql_fetch_assoc($result)) {
+      $returnArray[] = $tmp;
+    }
+
+    return $returnArray;
+  }
+
+  function getAll($sortOrder = "time") {
+    $sortBy = "ORDER BY iplogs.time DESC";
+    switch ($sortOrder) {
+      case "name":
+        $sortBy = "ORDER BY users.name, iplogs.ip";
+        break;
+      case "ip":
+        $sortBy = "ORDER BY iplogs.ip, users.name";
+        break;
+      case "id":
+        $sortBy = "ORDER BY iplogs.id ASC";
+    }
+
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+                    FROM users,iplogs
+                    WHERE users.id = iplogs.id
+                    {$sortBy}";
+    $result = mysql_query($searchQuery, $this->dblink);
+    $returnArray = array();
+    while ($tmp = mysql_fetch_assoc($result)) {
+      $returnArray[] = $tmp;
+    }
+
+    return $returnArray;
+  }
 }
 
 ?>

@@ -1,10 +1,12 @@
 <?php
 
-$CONF = array()
+$CONF = array();
 
 $CONF['title'] = "TT IP Logging";
 $CONF['version'] = "2.0 prerelease";
-$CONF['last_update'] = "2010-03-22";
+$CONF['last_update'] = "2010-03-23";
+$CONF['author'] = "Ward Muylaert";
+$CONF['authorcontact'] = "ward.muylaert@gmail.com";
 
 $CONF['dbhost'] = "localhost";
 $CONF['dbname'] = "";
