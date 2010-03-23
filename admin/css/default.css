@@ -1,0 +1,31 @@
+* {
+  font-family: "Trebuchet MS", Verdana, Arial, Monospace;
+}
+
+body {
+  margin: 0px;
+}
+
+#page {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 50px;
+  margin-right: 50px;
+  /*border-left: 1px solid black;
+  border-right: 1px solid black;*/
+}
+
+#menu {
+  width: 100%;
+  border-bottom: 1px dotted black;
+}
+#menu ul {
+  margin: 0px;
+  padding: 0px;
+  text-transform: lowercase;
+  font-weight: bold;
+  list-style-type: circle;
+}
+#menu li {
+  display: inline;
+}

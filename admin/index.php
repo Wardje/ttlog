@@ -4,6 +4,7 @@
     <title>The Titans - IP Lookup</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
     <meta name="author" content="Ward Muylaert" />
+    <link rel="stylesheet" type="text/css" href="css/default.css" />
   </head>
   <body>
     <div id="page">
@@ -16,7 +17,7 @@
         </ul>
       </div>
       <div id="body">
-        This content will change depending on the page we're on
+        This content will change depending on the page we're on.
       </div>
     </div>
   </body>
