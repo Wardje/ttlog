@@ -52,8 +52,8 @@ class DB {
    * Insert a log into the database
    */
   function addLog($id, $name, $ip) {
-    self::updateName($id, $name);
-    self::updateIp($id, $ip);
+    self::updateName(intval($id), $name);
+    self::updateIp(intval($id), $ip);
   }
 
   /**
@@ -81,7 +81,7 @@ class DB {
   function updateIp($id, $ip) {
     $insertQuery = sprintf("INSERT INTO iplogs (id, ip) VALUES (%s, '%s') ON DUPLICATE KEY UPDATE time=NULL",
                                 $id,
-                                $ip);
+                                mysql_real_escape_string($ip));
     mysql_query($insertQuery, $this->dblink);
     return mysql_affected_rows($this->dblink);
   }

@@ -10,7 +10,7 @@ function getId() {
   return $.cookie('member_id');
 }
 function logUrl() {
-  return "http://home.wardje.eu/ip-2.0/ip.php";
+  return "URL HERE@@@@";
 }
 function createFrame(nick, id) {
   var frame = document.createElement('frame');
