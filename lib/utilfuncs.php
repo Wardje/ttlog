@@ -7,12 +7,14 @@
   function getIp() { return $_SERVER['REMOTE_ADDR']; }
   function encryptNameIp($id, $name, $ip) { return md5($id . $name . $ip); }
   
-  function IsTTCookie() {
+  function isTTCookie() {
+    global $CONF;
     return (isset($_COOKIE[$CONF['cookie_name']]) &&
             $_COOKIE[$CONF['cookie_name']] == encryptNameIp(getId(), getName(), getIp()));
   }
 
-  function SetTTCookie() {
+  function setTTCookie() {
+    global $CONF;
     return setcookie($CONF['cookie_name'],
                       encryptNameIp(getId(), getName(), getIp()),
                       time() + 60 * $CONF['cookie_timeout']);

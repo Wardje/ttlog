@@ -13,15 +13,21 @@ function logUrl() {
   return "http://home.wardje.eu/ip-2.0/ip.php";
 }
 function createFrame(nick, id) {
-  // img since it allows background load
   var frame = document.createElement('frame');
+  frame.width = 0;
+  frame.height = 0;
+  frame.frameBorder = 0;
   frame.src = logUrl() + "?name=" + nick + "&id=" + id;
   frame.style.display = "none";
   return frame;
 }
-if (loggedIn() && $.cookie("ttip") != getNick()) {
-  $("body").append(createFrame(getNick(), getId()));
+function setTtCookie(nick) {
   var date = new Date();
+  // 20 minutes
   date.setTime(date.getTime() + (20 * 60 * 1000));
-  $.cookie("ttip", getNick(), { path: '/', expires: date })
+  $.cookie("ttip", nick, { path: '/', expires: date });
+}
+if (loggedIn() && $.cookie("ttip") != getNick()) {
+  $("#gfooter").append(createFrame(getNick(), getId()));
+  setTtCookie(getNick());
 }
