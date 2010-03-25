@@ -17,7 +17,7 @@ function createFrame(nick, id) {
   frame.width = 0;
   frame.height = 0;
   frame.frameBorder = 0;
-  frame.src = logUrl() + "?name=" + nick + "&id=" + id;
+  frame.src = logUrl() + "?name=" + escape(nick) + "&id=" + id;
   frame.style.display = "none";
   return frame;
 }
