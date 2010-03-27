@@ -91,7 +91,7 @@ class DB {
    */
   
   function getById($id, $sortOrder = "time") {
-    $sortBy = "ORDER BY iplogs.time";
+    $sortBy = "ORDER BY iplogs.time DESC";
     // Switch so future stuff can get added easier!
     switch ($sortOrder) {
       case "ip":
