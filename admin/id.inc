@@ -9,7 +9,7 @@
 <?php
   if ($q) {
     $mydb = new DB();
-    $result = $mydb->getById($q);
-    showResultTable($result);
+    $result = $mydb->getById($q, getSort());
+    showResultTable($result, getPage(), $q);
   }
 ?>

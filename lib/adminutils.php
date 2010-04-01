@@ -23,12 +23,12 @@
     return intval($id);
   }
 
-  function showResultTable($resultArray) {
+  function showResultTable($resultArray, $page, $search) {
     echo "<table>
   <tr>
-    <th>User</th>
-    <th>IP</th>
-    <th>Time</th>
+    <th><a href='?p={$page}&amp;q={$search}&amp;s=name'>User</a></th>
+    <th><a href='?p={$page}&amp;q={$search}&amp;s=ip'>IP</a></th>
+    <th><a href='?p={$page}&amp;q={$search}&amp;s=time'>Time</a></th>
   </tr>\n";
     foreach ($resultArray as $row) {
       echo "<tr>\n";

@@ -9,7 +9,7 @@
 <?php
   if ($q) {
     $mydb = new DB();
-    $result = $mydb->getByIp($q);
-    showResultTable($result);
+    $result = $mydb->getByIp($q, getSort());
+    showResultTable($result, getPage(), $q);
   }
 ?>
