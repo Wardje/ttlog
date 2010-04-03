@@ -30,7 +30,8 @@ class DB {
   function createTables() {
     $id_name_table = "CREATE TABLE users (
       id INT NOT NULL PRIMARY KEY,
-      name VARCHAR(32) NOT NULL
+      name VARCHAR(32) NOT NULL,
+      flagged BOOL DEFAULT 0
     )";
     $id_ip_time = "CREATE TABLE iplogs (
       id INT NOT NULL,
@@ -54,6 +55,15 @@ class DB {
   function addLog($id, $name, $ip) {
     self::updateName(intval($id), $name);
     self::updateIp(intval($id), $ip);
+  }
+
+
+  function setFlag($id, $flag = 0) {
+    $updateQuery = sprintf("UPDATE users SET flagged = %s WHERE id = %s",
+                            ($flag ? 1 : 0),
+                            intval($id));
+    mysql_query($updateQuery, $this->dblink);
+    return mysql_affected_rows($this->dblink);
   }
 
   /**
@@ -98,7 +108,7 @@ class DB {
         $sortBy = "ORDER BY iplogs.ip";
     }
 
-    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time,users.flagged
                     FROM users,iplogs
                     WHERE users.id = {$id} AND users.id = iplogs.id
                     {$sortBy}";
@@ -121,7 +131,7 @@ class DB {
         $sortBy = "ORDER BY iplogs.ip, users.name";
     }
 
-    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time,users.flagged
                     FROM users,iplogs
                     WHERE users.name LIKE '%" . mysql_real_escape_string($name) . "%'
                       AND users.id = iplogs.id
@@ -145,7 +155,7 @@ class DB {
         $sortBy = "ORDER BY users.name, iplogs.ip";
     }
 
-    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time,users.flagged
                     FROM users,iplogs
                     WHERE iplogs.ip LIKE '"
                         . str_replace('*', '%', mysql_real_escape_string($ip)) . "'
@@ -173,7 +183,7 @@ class DB {
         $sortBy = "ORDER BY iplogs.id ASC";
     }
 
-    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time
+    $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time,users.flagged
                     FROM users,iplogs
                     WHERE users.id = iplogs.id
                     {$sortBy}";

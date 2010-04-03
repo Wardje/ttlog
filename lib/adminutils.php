@@ -24,17 +24,19 @@
   }
 
   function showResultTable($resultArray, $page, $search) {
-    echo "<table>
+    echo "<table id='iptable'>
   <tr>
     <th><a href='?p={$page}&amp;q={$search}&amp;s=name'>User</a></th>
     <th><a href='?p={$page}&amp;q={$search}&amp;s=ip'>IP</a></th>
     <th><a href='?p={$page}&amp;q={$search}&amp;s=time'>Time</a></th>
+    <th>Flagged</th>
   </tr>\n";
     foreach ($resultArray as $row) {
       echo "<tr>\n";
       echo "<td><a href='?p=id&amp;q={$row['id']}'>{$row['name']}</a></td>\n";
       echo "<td><a href='?p=ip&amp;q={$row['ip']}'>{$row['ip']}</a></td>\n";
       echo "<td>{$row['time']}</td>\n";
+      echo "<td><a href='flag.php?id={$row['id']}&amp;set='><img src='img/flagged-{$row['flagged']}.png' /></a></td>\n";
       echo "</tr>\n";
     }
     echo "</table>";
