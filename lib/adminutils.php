@@ -36,7 +36,11 @@
       echo "<td><a href='?p=id&amp;q={$row['id']}'>{$row['name']}</a></td>\n";
       echo "<td><a href='?p=ip&amp;q={$row['ip']}'>{$row['ip']}</a></td>\n";
       echo "<td>{$row['time']}</td>\n";
-      echo "<td><a href='flag.php?id={$row['id']}&amp;set='><img src='img/flagged-{$row['flagged']}.png' /></a></td>\n";
+      echo "<td>";
+        echo "<a href='flag.php?id={$row['id']}&amp;set=" . ($row['flagged']?0:1) . "'>";
+        echo "<img onclick='javascript: alert(\"fix me\");' src='img/flagged-{$row['flagged']}.png' />";
+        echo "</a>";
+      echo "</td>\n";
       echo "</tr>\n";
     }
     echo "</table>";
