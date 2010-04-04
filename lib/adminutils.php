@@ -43,7 +43,7 @@
           . ($row['flagged']?'flagged ':'')
           . "user-" . $row['id']
           . "' src='img/flagged-{$row['flagged']}.png'"
-	  . "alt='{$row['flagged']}' />\n";
+	  . " alt='{$row['flagged']}' />\n";
         echo "</a>\n";
       echo "</td>\n";
       echo "</tr>\n";
