@@ -36,10 +36,14 @@
       echo "<td><a href='?p=id&amp;q={$row['id']}'>{$row['name']}</a></td>\n";
       echo "<td><a href='?p=ip&amp;q={$row['ip']}'>{$row['ip']}</a></td>\n";
       echo "<td>{$row['time']}</td>\n";
-      echo "<td>";
-        echo "<a href='flag.php?id={$row['id']}&amp;set=" . ($row['flagged']?0:1) . "'>";
-        echo "<img onclick='javascript: alert(\"fix me\");' src='img/flagged-{$row['flagged']}.png' />";
-        echo "</a>";
+      echo "<td>\n";
+        // <a> tag to more or less gracefully degrade for old browsers
+        echo "<a href='flag.php?id={$row['id']}&amp;set=" . ($row['flagged']?0:1) . "' onclick='javascript: return false;'>\n";
+        echo "<img onclick='javascript: changeFlagged(this);' class='"
+          . ($row['flagged']?'flagged ':'')
+          . "user-" . $row['id']
+          . "' src='img/flagged-{$row['flagged']}.png' />\n";
+        echo "</a>\n";
       echo "</td>\n";
       echo "</tr>\n";
     }

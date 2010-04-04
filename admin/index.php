@@ -10,6 +10,8 @@
     <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
     <meta name="author" content="Ward Muylaert" />
     <link rel="stylesheet" type="text/css" href="css/default.css" />
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/flagged.js"></script>
   </head>
   <body>
     <div id="page">
