@@ -42,7 +42,8 @@
         echo "<img onclick='javascript: changeFlagged(this);' class='"
           . ($row['flagged']?'flagged ':'')
           . "user-" . $row['id']
-          . "' src='img/flagged-{$row['flagged']}.png' />\n";
+          . "' src='img/flagged-{$row['flagged']}.png'"
+	  . "alt='{$row['flagged']}' />\n";
         echo "</a>\n";
       echo "</td>\n";
       echo "</tr>\n";
