@@ -53,7 +53,7 @@ img {
 }
 
 #body table {
-  width: auto;
+  min-width: 500px;
 }
 #body table a {
   text-decoration: none;
