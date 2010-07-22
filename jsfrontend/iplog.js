@@ -1,28 +1,3 @@
-/*function loggedIn() {
-  return (getId() != null);
-}
-function getNick() {
-  var userlinks = document.getElementById("userlinks");
-  var out = userlinks.innerHTML.match(/Logged in as: +?(?:<a.+?>)?([^ ].*?)<\//i); //regex aboose
-  return out[1];
-}
-function getId() {
-  var idcookie = getCookie('member_id');
-  if (idcookie != null && idcookie != "0") {
-    return idcookie;
-  }
-  else {
-    var userlinks = document.getElementById("userlinks");
-    var out = userlinks.innerHTML.match(/Logged in as.+?showuser=(\d+)/i);
-    if (out && out.length >= 2) {
-      return out[1];
-    }
-    else {
-      return null;
-    }
-  }
-}
-*/
 /*
 Expected in the page is utils object with the following properties:
 utils.loggedin()
