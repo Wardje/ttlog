@@ -186,7 +186,7 @@ class DB {
     $searchQuery = "SELECT users.name,iplogs.id,iplogs.ip,iplogs.time,users.flagged
                     FROM users,iplogs
                     WHERE users.id = iplogs.id
-                    LIMIT 0,1000
+                    LIMIT 1000
                     {$sortBy}";
     $result = mysql_query($searchQuery, $this->dblink);
     $returnArray = array();
