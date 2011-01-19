@@ -20,7 +20,7 @@ function createFrame(nick, id) {
 function setCookie(cName, value, expireMinutes) {
 	var expiredate = new Date();
 	expiredate.setMinutes(expiredate.getMinutes() + expireMinutes);
-	document.cookie = cName + "=" + escape(value) + ((expireMinutes==null) ? "" : ";expires=" + expiredate.toGMTString());
+	document.cookie = cName + "=" + escape(value) + ((expireMinutes==null) ? "" : "; path=/; expires=" + expiredate.toGMTString());
 }
 function getCookie(c_name) {
   if (document.cookie.length > 0) {
